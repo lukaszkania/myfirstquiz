@@ -47,10 +47,15 @@ list_of_questions_1 = [
 ("Wypisywanie tekstu:","echo"),
 ("Wyczyszczenie terminalu:","clear"),
 ("Pokazanie historii komend:","history"),
-("Uruchamianie skryptu:","bash")]
+("Uruchamianie skryptu:","bash"),
+("Wyswietlenie procesow (menedzer zadan):","htop"),
+("Zaznaczenie co jest katalogiem, a co plikiem:","ls -F"),
+("Wypisanie wszystkich katalogow wraz z ich zawartosciami:","ls -R *")
+]
 
 # Questions about Python language.
-list_of_questions_2 = [("Polecenie, ktore uzywamy, aby uruchomic interpreter Pythona, w ktorym mozemy pracowac interaktywnie:","python"),
+list_of_questions_2 = [
+("Polecenie, ktore uzywamy, aby uruchomic interpreter Pythona, w ktorym mozemy pracowac interaktywnie:","python"),
 ("Polecenie, ktore uzywamy, aby uruchomic interpreter Pythona, ktory m.in. koloruje skladnie oraz podpowiada mozliwe komendy i nazwy:", "ipython"),
 ("Metoda, ktora dodaje x do listy:",".append(x)"),
 ("Metoda, ktora usuwa pierwszy x z listy:",".remove(x)"),
@@ -67,12 +72,32 @@ list_of_questions_2 = [("Polecenie, ktore uzywamy, aby uruchomic interpreter Pyt
 ("Funkcja, ktora zwraca kopie listy w odwrotnym porzadku:","sorted(lista,reverse=True)"),
 ("Funkcja, ktora zwraca obiekt zawierajacy indeksy i elementy sekwencji:","enumerate()")]
 
+# Questions about Git.
+list_of_questions_3 = [
+("Komenda, ktora zapisuje nazwe uzytkownika:","git config --global user.name"),
+("Komenda, ktora zapisuje email uzytkownika:","git config --global user.email"),
+("Komenda, zapobiegajaca wystepowaniu roznych koncow zapisywania linii w systemie, stosowana na macOS oraz Linux:","git config --global core.autocrlf input"),
+("Komenda, zapobiegajaca wystepowaniu roznych koncow zapisywania linii w systemie, stosowana Windows:","git config --global core.autocrlf true"),
+("Ustawienie domyslnego edytora tekstow:","git config --global core.editor"),
+("Listowanie konfiguracji:","git config -l"),
+("Wywolanie pomocy do obslugi Git'a:","git config -h"),
+("Utworzenie repozytorium:","git init"),
+("Sprawdzanie zmian w projekcie oraz ich statusu w repozytorium Git'a","git status"),
+("Zmiana statusu pliku na sledzony:","git add"),
+("Dodanie pliku do repozytorium Git'a:","git commit"),
+("Sprawdzenie zmian w repozytorium (wyswietlenie wszystkich wykonanych \"commitow\"):","git log"),
+("Sprawdzenie zmian wystepujacych pomiedzy okreslonymi \"commitami\":","git diff"),
+("Sprawdzenie zmian, ktore sa juz przygotowane do kolejnej wersji repozytorium:","git diff --staged"),
+("Wyswietlenie zmian w historii w jednej linii na kazdy \"commit\":","git log --oneline",),
+("Usuniecie nadanych nazwy uzytkownika, e-mail'a itp.:","git config --global --unset user.main")]
+
 # All questions from all topics.
-list_of_all_questions = list_of_questions_1 + list_of_questions_2
+list_of_all_questions = list_of_questions_1 + list_of_questions_2 + list_of_questions_3
 
 
 
 def ask_questions_from_list(list_of_questions):
+    question_number = 0 # Variable created, to showing the question number.
     random.shuffle(list_of_questions) # Mixing order of questions.
     wrong_answers_questions = [] # List in which we save bad answers with their good answers and answers of the user.
     points = 0 # Final score of the user.
@@ -80,9 +105,10 @@ def ask_questions_from_list(list_of_questions):
      
     # Loop used to asking questions from list_of_questions. 
     for question,answer in list_of_questions:
+        question_number += 1
         try:
             time.sleep(1)
-            print(question)
+            print(str(question_number) + ". " + question)
             time.sleep(1)
             user_answ = input("Twoja odpowiedz: \n")
             if user_answ.lower().replace(" ","") == answer.lower().replace(" ",""): # Zapobieganie uzyciu w odpowiedzi duzych, malych liter lub spacji 
@@ -101,22 +127,28 @@ def ask_questions_from_list(list_of_questions):
             wrong_answers_questions.append((question,answer,user_answ))
             continue
 
+
     # Printing the score results.
     print("Twoj wynik, to: {}%.\n".format(str(int(points/amount_of_questions*100))))
     time.sleep(1)
     # Printing wrong answers with good answers.
-    print("Bledne odpowiedzi, wraz z prawidlowymi odpowiedziami:")
+    print("Bledne odpowiedzi, wraz z prawidlowymi odpowiedziami: \n")
     for q,a,user_answ in wrong_answers_questions:
         time.sleep(1)
-        print((q[:len(q)-1] + "?"), "Prawidlowa odpowiedz: " + a + "\n" , "Twoja odpowiedz: {}.".format(user_answ))
+        print((q[:len(q)-1] + "?"), "Prawidlowa odpowiedz: " + a + "\n" , "Twoja odpowiedz: {}. \n".format(user_answ))
 
 # Program support.
 decision = input("""Co chcesz zrobic? \n 1. Odpowiedziec na pytania z okreslonego tematu. \n 2. Odpowiedziec na wszystkie moduly. \n """)
 if decision == str(1):
-    topic = input("""Wybierz temat: \n 1. Wprowadzenie do Linuxa. \n 2. Wprowadzenie do Pythona. \n """)
+    topic = input("""Wybierz temat: \n 
+    1. Wprowadzenie do Linuxa. \n 
+    2. Wprowadzenie do Pythona. \n 
+    3. Wprowadzenie do systemu kontroli wersji (Git). \n """)
     if topic == str(1):
         ask_questions_from_list(list_of_questions_1)
     elif topic == str(2):
         ask_questions_from_list(list_of_questions_2)
+    elif topic == str(3):
+        ask_questions_from_list(list_of_questions_3)        
 elif decision == str(2):
     ask_questions_from_list(list_of_all_questions)
