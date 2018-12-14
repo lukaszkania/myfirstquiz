@@ -89,7 +89,13 @@ list_of_questions_3 = [
 ("Sprawdzenie zmian wystepujacych pomiedzy okreslonymi \"commitami\":","git diff"),
 ("Sprawdzenie zmian, ktore sa juz przygotowane do kolejnej wersji repozytorium:","git diff --staged"),
 ("Wyswietlenie zmian w historii w jednej linii na kazdy \"commit\":","git log --oneline",),
-("Usuniecie nadanych nazwy uzytkownika, e-mail'a itp.:","git config --global --unset user.main")
+("Usuniecie nadanych nazwy uzytkownika, e-mail'a itp.:","git config --global --unset user.main"),
+("Wyswietlenie zawartosci kazdej zapisanej zmiany w repozytorium:","git show",),
+("Powrot do poprzedniej wersji pliku:","git checkout"),
+("Dodanie nowego adresu do repozytorium zdalnego:","git remote set-url"),
+("Usuniecie adresu do zdalnego repozytorium:","git remote del"),
+("Sprawdzenie plikow i katalogow pomijanych przez gita:",("git status --ignored"),
+("Sciagniecie repozytorium od innego uzytkownika:","git clone")
 ]
 
 # All questions from all topics.
