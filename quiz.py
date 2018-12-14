@@ -89,7 +89,8 @@ list_of_questions_3 = [
 ("Sprawdzenie zmian wystepujacych pomiedzy okreslonymi \"commitami\":","git diff"),
 ("Sprawdzenie zmian, ktore sa juz przygotowane do kolejnej wersji repozytorium:","git diff --staged"),
 ("Wyswietlenie zmian w historii w jednej linii na kazdy \"commit\":","git log --oneline",),
-("Usuniecie nadanych nazwy uzytkownika, e-mail'a itp.:","git config --global --unset user.main")]
+("Usuniecie nadanych nazwy uzytkownika, e-mail'a itp.:","git config --global --unset user.main")
+]
 
 # All questions from all topics.
 list_of_all_questions = list_of_questions_1 + list_of_questions_2 + list_of_questions_3
